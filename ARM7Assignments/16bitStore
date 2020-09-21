@@ -1,0 +1,23 @@
+		;		program to move one 16 bit value into another 16 bit value
+		
+Start
+		
+		LDR		R1, =Value
+		LDRB		R2,[R1]
+		LDR		R3, =Result
+		LDRB		R4,[R3]
+		mov		R4, R2
+		
+		
+		
+		
+		
+		
+Value	DCB		11
+		
+		
+Result	DCB		0
+		
+		END
+		
+		

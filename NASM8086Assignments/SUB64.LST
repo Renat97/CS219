@@ -1,0 +1,41 @@
+     1                                  ; Find8 
+     2                                  ; D. Egbert ver 1.4 10/09/2017
+     3                                  ;
+     4                                  org 100h
+     5                                  section .text
+     6                                  ; beginning address of code = 0x0100
+     7                                  ;*******************************************************
+     8                                  ;
+     9                                  ; put your code here
+    10                                  ;
+    11                                  start:
+    12 00000000 8B1E[0000]              		MOV	BX,[LSTL]
+    13 00000004 B100                    		MOV	CL,0			;USE CL FOR LARGEST VALUE
+    14 00000006 8A87[0400]              LP1:	MOV	AL,[BX+DLST]
+    15 0000000A 38C1                    		CMP	CL,AL			;TEST IF CL > AL
+    16 0000000C 7702                    		JA	LPC				;CONTINUE IF NOT
+    17 0000000E 88C1                    		MOV	CL,AL			;ELSE STORE NEW MAX
+    18 00000010 4B                      LPC:	DEC	BX
+    19 00000011 7DF3                    		JGE	LP1
+    20 00000013 880E[0200]              		MOV	[MAXV],CL
+    21                                  ;		
+    22                                  ; end of your code
+    23                                  ;		
+    24                                  ;*******************************************************		
+    25 00000017 EBFE                    ILP:	JMP	ILP				;infinite loop
+    26                                  ;
+    27 00000019 00<rept>                TIMES 50H -($-$$) DB 0
+    28                                  section .data
+    29                                  ; beginning address of data = 0x0150
+    30                                  ;*******************************************************
+    31                                  ;
+    32                                  ; put your data items here
+    33                                  ;
+    34 00000000 0E00                    LSTL:	DB	14,0
+    35 00000002 0000                    MAXV:	DB	0,0
+    36 00000004 FE0519FA64961EC8FD-     DLST:	DB	254,5,25,250,100,150,30,200,253,15,23,46,73,175,0
+    37 0000000D 0F172E49AF00       
+    38                                  ;
+    39                                  ; end of your data
+    40                                  ;
+    41                                  ;*******************************************************

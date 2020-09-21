@@ -1,0 +1,35 @@
+     1                                  org 100h
+     2                                  section .text
+     3                                  start:
+     4                                  ; put your code here
+     5                                  ;
+     6                                  ; Calculate the sum
+     7                                  ; of elements in V1 array,
+     8                                  ; store result in V2.
+     9                                  ; number of elements
+    10 00000000 B90500                  	MOV CX, 5 
+    11                                  ; AL will store the sum:
+    12 00000003 B000                    	MOV AL, 0
+    13                                  ; BX is an index
+    14 00000005 BB0000                  	MOV BX, 0
+    15                                  ; sum elements
+    16 00000008 0287[0000]              next: ADD AL, [V1+BX]
+    17                                  ; modify array for no
+    18                                  ; specific reason
+    19 0000000C 889F[0000]              	MOV [V1+BX], BL
+    20                                  ; next byte
+    21 00000010 43                      	INC BX
+    22                                  ; loop until CX=0
+    23 00000011 E2F5                    	LOOP next
+    24                                  ; store result in v2
+    25 00000013 A2[0500]                	MOV [V2], AL
+    26 00000016 E2FE                    iloop:	LOOP iloop
+    27                                  section .data
+    28                                  ; put data items here
+    29                                  ;
+    30                                  ; variables:
+    31 00000000 0403020100              V1 DB 4, 3, 2, 1, 0
+    32 00000005 00                      V2 DB 0
+    33                                  section .bss
+    34                                  ; put uninitialized data here
+    35                                  ;

@@ -1,0 +1,58 @@
+     1                                  ; STRCAT to add two strings into a third
+     2                                  ; D. Egbert ver 1.1 11/14/2016
+     3                                  ;
+     4                                  org 100h
+     5                                  section .text
+     6                                  ; beginning address of code = 0x0100
+     7                                  ;*******************************************************
+     8                                  ;
+     9                                  ; put your code here
+    10                                  ;
+    11                                  start:
+    12 00000000 BE0000                  		MOV	Si, 0           ; moving 0 into this index register
+    13 00000003 BF0000                  		MOV	Di, 0           ; moving 0 into Di
+    14 00000006 B80000                  		MOV Ax, 0           ; moving 0 into Ax base register
+    15                                  
+    16                                  LP1:
+    17 00000009 8B85[0000]                      MOV	Ax,[str1+DI]  ; moving the adress of str1 into Ax with displacement register
+    18 0000000D 47                      		INC DI			;increment DI
+    19 0000000E 83F800                  		CMP Ax, 0			;AX - 0,  check flag
+    20 00000011 7402                    		JE ZERO             ; jump if the line above ( Ax - 0) sets the zero flag to ZERO
+    21 00000013 7503                    		JNE NZERO			; jump if the line above (Ax - 0) doesnt set the zero flag to NZERO
+    22                                  
+    23                                  ZERO:
+    24 00000015 BF0000                          mov Di, 0         ; if Ax - 0 sets the zero flag, move 0 into the Di register
+    25                                  NZERO:
+    26 00000018 8984[1000]                      mov[str3 + si], Ax ; if its not zero, move Ax into the adress of str3 + a displacement register
+    27 0000001C 46                              INC si ; keep going through str3 and checking each value
+    28 0000001D EBEA                            Jmp LP1  ; unconditional jump so go to LP1 no matter what
+    29                                  LP2:
+    30 0000001F 8B85[0100]                      mov Ax,[str2 + Di]
+    31 00000023 8984[1000]                      mov [str3+Si],Ax
+    32 00000027 46                              INC Si
+    33 00000028 47                              INC Di
+    34 00000029 83F800                          cmp Ax,0
+    35 0000002C EBF1                            jmp LP2
+    36                                  
+    37                                  
+    38                                  ;
+    39                                  ; end of your code
+    40                                  ;
+    41                                  ;*******************************************************
+    42 0000002E EBFE                    ILP:	JMP	ILP				;infinite loop
+    43                                  ;
+    44 00000030 00<rept>                TIMES 50H -($-$$) DB 0
+    45                                  section .data
+    46                                  ; beginning address of data = 0x0150
+    47                                  ;*******************************************************
+    48                                  ;
+    49                                  ; put your data items here
+    50                                  ;
+    51 00000000 0E                      str1:	DB	14
+    52 00000001 FE0519FA64961EC8FD-     str2:	DB	254,5,25,250,100,150,30,200,253,15,23,46,73,175,0
+    53 0000000A 0F172E49AF00       
+    54 00000010 00                      str3:	DB  0
+    55                                  ;
+    56                                  ; end of your data
+    57                                  ;
+    58                                  ;*******************************************************

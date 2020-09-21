@@ -1,0 +1,22 @@
+		;		Function to find StrLen
+		;		by Renat Norderhaug, made on 4/14/18
+		
+		LDR		R0, =String ; load the adress of string1
+		mov		R1, #0  ; counter for traversing string
+		mov		R5, #0 ; count of letters in string
+		
+Loop
+		LDRB		R2, [R0,R1]  ; Loads the first byte of R0
+		ADD		R5, R5, #1 ; increments count
+		cmp		R2, #0    ; checks to see if this value is the null terminator
+		ADD		R1,R1,#1
+		BNE		Loop  ; if it doesnt set the zero flag then go to Loop
+		LDR		R3, =CharCount
+		STR		R5, [R3] ; store it into the charcount
+		
+		
+String	dcb		'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!', 0
+CharCount	DCB		0
+		
+		END
+		

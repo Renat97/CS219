@@ -1,0 +1,44 @@
+     1                                  ; STRCC.asm
+     2                                  ; Gabe Petersen - 3/30/18
+     3                                  ;
+     4                                  org 100h
+     5                                  section .text
+     6                                  ;
+     7                                  ;*******************************************************
+     8                                  ;
+     9                                  start:
+    10 00000000 BF0000                      MOV DI, 0               ; ZERO DI FOR DEST INDEXING
+    11 00000003 BE0000                      MOV SI, 0               ; ZERO SI FOR SOURCE INDEXING
+    12                                  LP1:
+    13 00000006 8A84[0000]                  MOV AL, [STR1 + SI]     ; STR1 CHAR -> AL
+    14 0000000A 3C00                        CMP AL, 0               ; CHECK IF NULL
+    15 0000000C 7408                        JE P2                   ; IF NULL, MOVE ON TO SECOND STRING
+    16 0000000E 8885[0C00]                  MOV [STR3 + DI], AL     ; IF NOT NULL, STR1 CHAR -> STR3
+    17 00000012 46                          INC SI                  ; INCREMENT SI
+    18 00000013 47                          INC DI                  ; INCREMENT DI
+    19 00000014 EBF0                        JMP LP1                 ; LOOP BACK
+    20                                  P2:
+    21 00000016 BE0000                      MOV SI, 0               ; ZERO SOURCE INDEX AGAIN
+    22                                  LP2:
+    23 00000019 8A84[0600]                  MOV AL, [STR2 + SI]     ; STR2 CHAR -> AL
+    24 0000001D 8885[0C00]                  MOV [STR3 + DI], AL     ; STR2 CHAR -> STR3
+    25 00000021 3C00                        CMP AL, 0               ; CHECK IF NULL
+    26 00000023 7404                        JE ILP                  ; IF NULL, END PROGRAM
+    27 00000025 46                          INC SI                  ; INCREMENT SI
+    28 00000026 47                          INC DI                  ; INCREMENT DI
+    29 00000027 EBF0                        JMP LP2                 ; LOOP BACK
+    30                                  ;
+    31                                  ;*******************************************************
+    32                                  ;
+    33 00000029 EBFE                    ILP:	JMP	ILP				; infinite loop
+    34                                  ;
+    35 0000002B 00<rept>                TIMES 50H -($-$$) DB 0
+    36                                  section .data
+    37                                  ;
+    38                                  ;*******************************************************
+    39                                  ;
+    40 00000000 48656C6C6F20            STR1 db 'Hello ',
+    41 00000006 576F726C6421            STR2 db 'World!',
+    42 0000000C 00                      STR3 db 0
+    43                                  ;
+    44                                  ;*******************************************************

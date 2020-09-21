@@ -1,0 +1,27 @@
+		;		find 8 for arm7
+		ldr r0,=LSTL
+		ldr r1, r0
+		sub r1, r1, 0 ; decrement list length to 8
+		ldr r0,=LIST ; point to list start 
+		ldr r2,=0 ; set the max value register
+		ldr r4,=0 ; zero offset counter
+f8lp1		ldrb r3,[r0,r4]
+		cmp r2,r3
+		bhi f8c
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		;		Data section
+		
+LIST		DCB		41,40,2,3,19,29,2,1,0
+LSTL		DCB		9
+MAXV		DCB		0

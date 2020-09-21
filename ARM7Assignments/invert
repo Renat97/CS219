@@ -1,0 +1,17 @@
+		
+Start
+		
+		LDR		R0, =Value
+		LDR		R1,[R0]
+		MVN		R1,R1
+		LDR		R2, =Result
+		LDR		R3,[R2]
+		mov		R3,R1
+		
+		
+		
+		
+		
+		
+Value	DCD		&C123
+Result	DCD		0

@@ -1,0 +1,37 @@
+		;		str cat program, adds two strings and stores in third
+		
+		mov		r1, #0 ; counter
+		mov		r2, #0 ; counter to move through strings
+		ldr		r0,=String1 ; loads address of String1
+		ldr		r4,=String2 ; loads address of String2
+		ldr		r3,=String3 ; loads address of String3
+		ldr		r6,[r3]  ; loads value of string 3 to r6
+		mov		r5,0
+		
+LP1
+		ldrb		r6,[r0,r2] ; move from first string to third
+		add		r2, r2, #1 ; go to next spot in string
+		add		r5,r5,#1 ; increments the destination index
+		cmp		r6, #0 ; check if you are at last element
+		BEQ		counter
+		strb		r6,[r4,r5] ; stores into new string
+		BAL		LP1
+		
+counter
+		mov		r2,#0			; move counter back to 0
+LP2
+		ldrb		r6,[r4,r2]     ; move string 2 to r3
+		add		r2,r2,#1     ; add 1 to r2 to traverse string
+		CMP		r2,#5       ; check if you are at end of string2
+		BEQ		LP3		; if you are at end of string 2 then finish
+		BAL		LP2		; else go back to LP2
+		
+LP3
+		str		r6,[r3]
+		end
+		
+		
+		
+String1	dcb		'H', 'e', 'l', 'l', 'o', 0
+String2	dcb		'W', 'o','r','l','d', 0
+String3	dcb		0

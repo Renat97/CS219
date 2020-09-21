@@ -1,0 +1,5 @@
+		mov		r1,  #127 ; moves decimal value 127 to r1
+		ldr		r2, =0xe45ad ; moves hex value into r2
+		ldr		r3, =0b10101110010 ; moves binary value into r3
+		ADD		r4, r1,r2 ; add's r1 and r2 and stores it into r4
+		ADD		r4, r4,r3 ; add's r4 and r3 and stores it into r4

@@ -1,0 +1,32 @@
+		;		write an arm 7 expression to solve z =(7(x+y)^2 + 4), shifted left 5
+		;		Renat Norderhaug
+		;		algebra.s
+start
+		ldr		r0,=data3 ; load z to register 0
+		ldr		r1,=data2 ; load y to register 1
+		ldr		r2,=data1 ; load x to register 2
+		
+		ldr		r3,[r1] ; y
+		ldr		r4,[r2] ; x
+		
+		add		r3,r3,r4 ; adds x and y and stores in r3
+		
+		;MULS	r3,r3,r3 ; multiplies x+y with x + y
+		;MULS	r3,#7    ; multiplies (x+y)^2 * 7 and stores in r3
+		add		r3,r3,#4    ; adds immediate value 4 to r3
+		LSL		r3,r3,#5   ; shifts left by 5
+		str		r3,[r0]
+		
+		
+		
+		
+		
+		
+		
+		;
+data
+		;
+		
+data1	DCB		145
+data2	DCB		209
+data3	DCB		0
